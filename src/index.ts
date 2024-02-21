@@ -4,19 +4,15 @@ enum TransactionType {
 }
 class Amount {
     constructor(private value: number) {}
-
     add(amount: Amount): Amount {
         return new Amount(this.value + amount.value);
     }
-
     subtract(amount: Amount): Amount {
         return new Amount(this.value - amount.value);
     }
-
     isNegative(): boolean {
         return this.value < 0;
     }
-
     toString(): string {
         return this.value.toString();
     }
@@ -24,11 +20,9 @@ class Amount {
 
 class Transaction {
     constructor(public date: Date, private amount: Amount, public type: TransactionType) {}
-
     adjustBalance(balance: Amount): Amount {
         return this.type === TransactionType.Deposit ? balance.add(this.amount) : balance.subtract(this.amount);
     }
-
     toString(balance: Amount): string {
         let credit = this.type === TransactionType.Deposit ? this.amount.toString() : '';
         let debit = this.type === TransactionType.Withdrawal ? this.amount.toString() : '';
@@ -38,11 +32,9 @@ class Transaction {
 
 class Transactions {
     private transactions: Transaction[] = [];
-
     add(transaction: Transaction): void {
         this.transactions.unshift(transaction);
     }
-
     adjustBalance(): Amount {
         let balance = new Amount(0);
         for (let transaction of this.transactions) {
@@ -50,7 +42,6 @@ class Transactions {
         }
         return balance;
     }
-
     print(): string {
         let balance = new Amount(0);
         let output = 'date || credit || debit || balance\n';
